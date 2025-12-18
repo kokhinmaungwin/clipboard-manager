@@ -6,6 +6,8 @@
 
 ```txt
 clipboard-manager/
+├── postcss.config.js      
+├── vite.config.ts
 ├── public/
 │   ├── manifest.json
 │   ├── sw.js
