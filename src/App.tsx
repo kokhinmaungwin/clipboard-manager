@@ -2,26 +2,41 @@ import React, { useState, useEffect } from 'react';
 import localforage from 'localforage';
 
 function App() {
+  // Clipboard states
   const [clips, setClips] = useState<string[]>([]);
   const [input, setInput] = useState('');
   const [search, setSearch] = useState('');
 
-  // Load clips from IndexedDB on mount
+  // PWA install prompt states
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [showInstallBtn, setShowInstallBtn] = useState(false);
+
   useEffect(() => {
     localforage.getItem<string[]>('clips').then(data => {
       if (data) setClips(data);
     });
   }, []);
 
-  // Save clips on change
   useEffect(() => {
     localforage.setItem('clips', clips);
   }, [clips]);
 
+  // Listen for beforeinstallprompt event
+  useEffect(() => {
+    const handler = (e: any) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setShowInstallBtn(true);
+    };
+    window.addEventListener('beforeinstallprompt', handler);
+
+    return () => window.removeEventListener('beforeinstallprompt', handler);
+  }, []);
+
   const addClip = () => {
     const trimmed = input.trim();
     if (trimmed && !clips.includes(trimmed)) {
-      setClips([trimmed, ...clips].slice(0, 50)); // Keep max 50 clips
+      setClips([trimmed, ...clips].slice(0, 50)); // Max 50 clips
       setInput('');
     }
   };
@@ -39,9 +54,28 @@ function App() {
 
   const filteredClips = clips.filter(c => c.toLowerCase().includes(search.toLowerCase()));
 
+  const handleInstallClick = () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(() => {
+        setDeferredPrompt(null);
+        setShowInstallBtn(false);
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-900 text-white flex flex-col items-center p-4">
       <h1 className="text-3xl font-bold mb-6">Clipboard Manager</h1>
+
+      {showInstallBtn && (
+        <button
+          onClick={handleInstallClick}
+          className="mb-4 bg-green-600 px-6 py-2 rounded hover:bg-green-700 transition"
+        >
+          Install App
+        </button>
+      )}
 
       <textarea
         className="w-full max-w-xl p-2 rounded text-black"
