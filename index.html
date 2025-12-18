@@ -2,18 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clipboard Manager</title>
-  <link rel="manifest" href="manifest.json" />
-  <link href="/dist/output.css" rel="stylesheet" />
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="/clipboard-manager/manifest.json" />
 </head>
 <body>
   <div id="root"></div>
 
+  <!-- Vite entry -->
+  <script type="module" src="/src/index.tsx"></script>
+
+  <!-- Service Worker -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js');
+        navigator.serviceWorker.register('/clipboard-manager/sw.js');
       });
     }
   </script>
