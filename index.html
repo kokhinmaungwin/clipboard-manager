@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clipboard Manager</title>
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="/clipboard-manager/manifest.json" />
+  <script type="module" crossorigin src="/clipboard-manager/assets/index-1aea799d.js"></script>
+  <link rel="stylesheet" href="/clipboard-manager/assets/index-78fe9f69.css">
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- Vite entry -->
+  
+
+  <!-- Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/clipboard-manager/sw.js');
+      });
+    }
+  </script>
+</body>
+</html>
