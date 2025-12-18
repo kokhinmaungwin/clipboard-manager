@@ -19,7 +19,8 @@ Clone the repository:
 
 ```bash
 git clone https://github.com/kokhinmaungwin/clipboard-manager.git
-
+```
+```bash
 cd clipboard-manager
 ```
 Install dependencies:
