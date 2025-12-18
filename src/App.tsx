@@ -69,13 +69,14 @@ function App() {
       <h1 className="text-3xl font-bold mb-6">Clipboard Manager</h1>
 
       {showInstallBtn && (
-        <button
-          onClick={handleInstallClick}
-          className="mb-4 bg-green-600 px-6 py-2 rounded hover:bg-green-700 transition"
-        >
-          Install App
-        </button>
-      )}
+  <button
+    onClick={handleInstallClick}
+    className="mb-4 px-4 py-1 rounded bg-green-600 hover:bg-green-700 text-white font-semibold shadow-md transition"
+    style={{ maxWidth: '150px', width: '100%' }}
+  >
+    Install App
+  </button>
+)}
 
       <textarea
         className="w-full max-w-xl p-2 rounded text-black"
