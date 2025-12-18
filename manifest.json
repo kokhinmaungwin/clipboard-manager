@@ -1,7 +1,7 @@
 {
-  "short_name": "ClipboardMgr",
   "name": "Clipboard Manager",
-  "start_url": ".",
+  "short_name": "ClipboardMgr",
+  "start_url": "/clipboard-manager/",
   "display": "standalone",
   "background_color": "#1e293b",
   "theme_color": "#3b82f6",
